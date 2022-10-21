@@ -1,15 +1,11 @@
 const router = require('express').Router();
 const STATUS = require('../http-status.json');
-const getCountries = require('./getCountries.js');
+const getCountries = require('../controllers/getCountries.js');
 
 router.get('/', async (req, res) => {
-  const { name } = req.query;
   try {
-    const countries =
-      (!name)
-        ? await getCountries()
-        : await getCountries({name})
-    ;
+    const { name } = req.query;
+    const countries = (!name) ? await getCountries() : await getCountries({name: name});
     return res.status(STATUS.OK).send(countries);
   } catch (error) {
     return res.status(STATUS.BAD_REQUEST).send(error.message);
