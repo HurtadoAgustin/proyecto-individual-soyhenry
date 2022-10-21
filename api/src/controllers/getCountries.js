@@ -3,18 +3,19 @@ const { Country } = require('../db.js');
 
 const getCountries = async ({ name, idCountry } = {}) => {
   try{
-    // dont filter: get all countries
-    if(!name && !idCountry){
-      const countries = await Country.findAll();
-      if(countries.length) return countries;
-      const data = await callApi();
-      await Country.bulkCreate(data, {ignoreDuplicates: true});
-      return await Country.findAll();
+    const filters = async (data) => {
+      if(!name && !idCountry) return data; // dont filter (get all countries)
+      if(!name) return await Country.findByPk(idCountry); // filter by id
+      return await Country.findAll({where: {name}}); // filter by name
     }
-    // filter by id:
-    if(!name) return await Country.findByPk(idCountry);
-    // filter by name:
-    return await Country.findAll({where: {name: name}});
+
+    const countries = await Country.findAll();
+    if(countries.length) return filters(countries); // if database exists
+    
+    const data = await callApi();
+    const newCountries = await Country.bulkCreate(data, {ignoreDuplicates: true});
+    return filters(newCountries);
+
   } catch (err) {
     console.log(`Not found country... ${err}`);
   }
