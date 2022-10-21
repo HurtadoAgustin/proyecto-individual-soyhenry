@@ -1,25 +1,38 @@
 const router = require('express').Router();
-const STATUS = require('../http-status.json');
+const { StatusCodes } = require('http-status-codes');
 const getCountries = require('../controllers/getCountries.js');
 
 router.get('/', async (req, res) => {
+  const { name } = req.query;
+
   try {
-    const { name } = req.query;
-    const countries = (!name) ? await getCountries() : await getCountries({name: name});
-    return res.status(STATUS.OK).send(countries);
+    const countries = (!name) ? await getCountries() : await getCountries({name});
+    if(!countries.length) throw {message: 'Country not found', status: StatusCodes.NOT_FOUND};
+
+    return res.status(StatusCodes.OK).send(countries);
+
   } catch (error) {
-    return res.status(STATUS.BAD_REQUEST).send(error.message);
+    return res
+      .status(error.status || StatusCodes.BAD_REQUEST)
+      .send(error.message || error)
+    ;
   }
 });
 
 router.get('/:idCountry', async (req, res) => {
   const { idCountry } = req.params;
+
   try {
     const country = await getCountries({idCountry});
-    if(!country) return res.status(STATUS.NOT_FOUND).send('COUNTRY NOT FOUND');
-    res.status(STATUS.OK).send(country);
+    if(!country) throw {message: 'Country not found', status: StatusCodes.NOT_FOUND};
+
+    return res.status(StatusCodes.OK).send(country);
+
   } catch (error) {
-    res.status(STATUS.BAD_REQUEST).send(error.message);
+    return res
+      .status(error.status || StatusCodes.BAD_REQUEST)
+      .send(error.message || error)
+    ;
   }
 });
 

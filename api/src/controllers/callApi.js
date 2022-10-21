@@ -3,6 +3,7 @@
 // use the Sequalize Models and my own PostgreSQL data base.
 
 const axios = require('axios');
+const { StatusCodes } = require('http-status-codes');
 const API_PATH = 'https://restcountries.com/v3/all';
 
 const countryModelParser = ( country ) => {
@@ -22,9 +23,10 @@ const callApi = () =>
   axios(API_PATH)
   .then(res => res.data)
   .then(data => data.map(countryModelParser))
-  .catch(err => {
-    throw new Error(`Error at calling the external Api... ${err}`)
-  });
+  .catch(error => { throw {
+    message: `Error at calling the external api: ${error}`,
+    status: StatusCodes.INTERNAL_SERVER_ERROR,
+  }});
 ;
 
 module.exports = callApi;
