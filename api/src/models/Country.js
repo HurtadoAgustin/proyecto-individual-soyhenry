@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
-const CONTINENTS = ['America', 'Europe', 'Africa', 'Asia', 'Oceania'];
+const CONTINENTS = ['South America', 'North America', 'Europe', 'Africa', 'Asia', 'Oceania', 'Antarctica'];
+const SUB_REGIONS = ['N/A', 'Western Asia', 'Southeast Europe', 'Western Africa', 'Northern Africa', 'Southern Asia', 'Eastern Africa', 'Western Europe', 'Southern Africa', 'Caribbean', 'Eastern Asia', 'Northern Europe', 'Micronesia', 'Polynesia', 'North America', 'Southern Europe', 'Central America', 'Middle Africa', 'South America', 'Australia and New Zealand', 'Melanesia', 'South-Eastern Asia', 'Eastern Europe', 'Central Europe', 'Central Asia']
 
 module.exports = (sequelize) => {
   sequelize.define('Country', {
@@ -24,7 +25,8 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     subregion: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM(SUB_REGIONS),
+      defaultValue: 'N/A',
     },
     area: {
       type: DataTypes.FLOAT,
