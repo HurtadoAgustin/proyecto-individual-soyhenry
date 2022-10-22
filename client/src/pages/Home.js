@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import CountryList from '../containers/CountryList.js';
 
 function Home() {
   return <>
@@ -11,6 +12,9 @@ function Home() {
         <button>Crear actividad</button>
       </Link>
     </header>
+    <div>
+      <CountryList />
+    </div>
   </>
 }
 
