@@ -1,6 +1,7 @@
 import {
   GET_ALL_COUNTRIES,
   GET_COUNTRY,
+  CLEAR_COUNTRY,
 } from './actions.js';
 
 const initialState = {
@@ -19,6 +20,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         country: action.payload,
+      }
+    case CLEAR_COUNTRY:
+      return {
+        ...state,
+        country: {},
       }
     default:
       return { ...state }

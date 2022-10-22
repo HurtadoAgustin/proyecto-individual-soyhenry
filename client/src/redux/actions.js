@@ -4,6 +4,7 @@ const API_PATH = 'http://localhost:3001';
 
 export const GET_ALL_COUNTRIES = 'GET_ALL_COUNTRIES';
 export const GET_COUNTRY = 'GET_COUNTRY';
+export const CLEAR_COUNTRY = 'CLEAR_COUNTRY';
 
 export const getAllCountries = () =>
   dispatch =>
@@ -11,7 +12,7 @@ export const getAllCountries = () =>
       .then(response => response.data)
       .then(data => dispatch({
         type: GET_ALL_COUNTRIES,
-        payload: data
+        payload: data,
       }))
       .catch(error => console.log(error))
 ;
@@ -22,7 +23,11 @@ export const getCountry = ( idCountry ) =>
       .then(response => response.data)
       .then(data => dispatch({
         type: GET_COUNTRY,
-        payload: data[0]
+        payload: data[0],
       }))
       .catch(error => console.log(error))
 ;
+
+export const clearCountry = () => {
+  return { type: CLEAR_COUNTRY }
+};
