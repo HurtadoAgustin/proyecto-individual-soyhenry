@@ -1,8 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Home() {
   return <>
-    <div>C</div>
+    <header>
+      <Link to='/'>
+        <button>Volver LandingPage</button>
+      </Link>
+      <Link to='/create'>
+        <button>Crear actividad</button>
+      </Link>
+    </header>
   </>
 }
 

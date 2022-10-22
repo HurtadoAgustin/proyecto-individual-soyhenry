@@ -1,8 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function CreateActivity() {
   return <>
-  <div>B</div>
+    <Link to='/home'>
+      <button>GO HOME</button>
+    </Link>
   </>
 }
 
