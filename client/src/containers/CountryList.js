@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCountries } from '../redux/actions.js';
-//import CountryCard from '../components/CountryCard.js';
+import CountryCard from '../components/CountryCard.js';
 
 function CountryList() {
   const dispatch = useDispatch();
@@ -12,10 +12,13 @@ function CountryList() {
   }, [dispatch]);
 
   return <>
-    {countryList?.map(country => <div>
-        {country.id}
-      </div>
-    )}
+    {countryList?.map(country => <CountryCard
+      key={country.id}
+      id={country.id}
+      name={country.name}
+      flag={country.flag}
+      continent={country.continent}
+    />)}
   </>
 }
 
