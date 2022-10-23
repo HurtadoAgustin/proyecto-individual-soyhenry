@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { saveFilters } from '../redux/actions.js';
 
 function ListFilters() {
+  const dispatch = useDispatch();
+
   const [filters, setFilters] = useState({
     page: 0,
     text: '',
     ascendent: false,
   });
+
+  useEffect(() => {
+    dispatch(saveFilters(filters));
+  },[dispatch, filters]);
 
   const addPageHandler = () => setFilters(
     {...filters, page: filters.page + 1}
