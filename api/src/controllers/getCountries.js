@@ -7,7 +7,7 @@ const getCountries = async ({ name, idCountry } = {}) => {
     const filters = ( arrayData ) => {
       if(!name && !idCountry) return arrayData; // dont filter (get all countries)
       if(!name) return arrayData.filter(country => country.id === idCountry.toUpperCase()); // filter by id
-      return arrayData.filter(country => country.name.toUpperCase() === name.toUpperCase()); // filter by name
+      return arrayData.filter(country => country.name.toUpperCase().includes(name.toUpperCase())); // filter by name
     }
 
     const countries = await Country.findAll();
