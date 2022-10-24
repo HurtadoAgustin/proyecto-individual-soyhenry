@@ -24,6 +24,8 @@ function CountryList() {
       : data.sort((a,b) => a.population - b.population)
     ;
     if(!filters.sortAsc) data = data.reverse();
+    if(!!filters.continent) data = data.filter(country => country.continent === filters.continent);
+    
     setCountryList(data);
   },[countries, filters])
 

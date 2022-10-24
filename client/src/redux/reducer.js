@@ -10,6 +10,7 @@ const initialState = {
   countries: [],
   country: {},
   filters: {},
+  continents: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -18,6 +19,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         countries: action.payload,
+        continents: [...new Set(action.payload.map(el => el.continent))]
       }
     case GET_COUNTRIES_BY_NAME:
       return {

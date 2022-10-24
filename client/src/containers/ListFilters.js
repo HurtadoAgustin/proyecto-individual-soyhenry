@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { saveFilters } from '../redux/actions.js';
 
 const initialFilters = {
@@ -13,6 +13,7 @@ const initialFilters = {
 
 function ListFilters() {
   const dispatch = useDispatch();
+  const continents = useSelector(state => state.continents);
   const [filters, setFilters] = useState(initialFilters);
 
   useEffect(() => {
@@ -39,6 +40,10 @@ function ListFilters() {
   const onTypeButtonHandler = () => setFilters(
     {...filters, typeAlpha: !filters.typeAlpha}
   );
+  
+  const onContinentSelectHandler = (e) => setFilters(
+    {...filters, continent: e.target.value}
+  );
 
   return <>
     <button onClick={discountPageHandler}>-</button>
@@ -51,6 +56,16 @@ function ListFilters() {
     <button onClick={onTypeButtonHandler}>
       {filters.typeAlpha ? 'Alphabetical' : 'Population'}
     </button>
+    <select
+      onChange={onContinentSelectHandler}
+      value={filters.continent}
+    >
+      <option value=''>All Continents</option>
+      {continents?.map((continent, index) => <option
+        value={continent}
+        key={index}
+      >{continent}</option>)}
+    </select>
   </>
 }
 
