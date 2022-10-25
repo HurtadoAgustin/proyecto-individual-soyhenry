@@ -1,9 +1,10 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import LandingPage from './pages/LandingPage.js';
-import Home from './pages/Home.js';
-import CountryDetail from './pages/CountryDetail.js';
-import CreateActivity from './pages/CreateActivity.js';
+import LandingPage from './pages/Landing/Landing.js';
+import Home from './pages/Home/Home.js';
+import CountryDetail from './pages/CountryDetail/CountryDetail.js';
+import CreateActivity from './pages/CreateActivity/CreateActivity.js';
+import './styles/globalStyles.css';
 
 function App() {
   return <>

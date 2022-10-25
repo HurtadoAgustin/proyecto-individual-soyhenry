@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCountries, postActivity } from '../redux/actions.js';
-import { initialFormValues } from '../utils/initialObjects.js';
-import { SEASONS } from '../utils/constants.js';
+import { getAllCountries, postActivity } from '../../redux/actions.js';
+import { initialFormValues } from '../../utils/initialObjects.js';
+import { SEASONS } from '../../utils/constants.js';
+import './ActivityForm.css';
 
 function ActivityForm() {
   const dispatch = useDispatch();

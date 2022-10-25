@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import CountryList from '../containers/CountryList.js';
-import ListFilters from '../containers/ListFilters.js';
+import CountryList from '../../containers/CountryList/CountryList.js';
+import ListFilters from '../../containers/ListFilters/ListFilters.js';
+import './Home.css';
 
 function Home() {
   return <>

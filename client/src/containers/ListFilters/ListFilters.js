@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { saveFilters } from '../redux/actions.js';
-import { initialFilters } from '../utils/initialObjects.js';
+import { saveFilters } from '../../redux/actions.js';
+import { initialFilters } from '../../utils/initialObjects.js';
+import './ListFilters.css';
 
 function ListFilters() {
   const dispatch = useDispatch();
