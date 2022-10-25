@@ -1,28 +1,57 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getAllCountries } from '../redux/actions.js';
 import { initialFormValues } from '../utils/initialObjects.js';
 import { SEASONS } from '../utils/constants.js';
 
 function ActivityForm() {
   const dispatch = useDispatch();
-  const allCountriesNames = useSelector(state => state.allCountriesNames);
+  const allCountries = useSelector(state => state.allCountries);
   const countriesRef = useRef('');
+  const [errorText, setErrorText] = useState('');
 
   const [formValues, setFormValues] = useState(initialFormValues);
 
+  useEffect(()=>{
+    dispatch(getAllCountries());
+  },[dispatch]);
+  
   const onChangeHandler = ( e ) => {
     setFormValues({...formValues , [e.target.name]:e.target.value});
+    setErrorText('');
   };
-
+  
+  /* ---- Form Validations ---- */
+  
   const onCountryAddHandler = () => {
-    setFormValues({...formValues, countries: [...formValues.countries, countriesRef.current.value]})
+    const countrySelected = countriesRef.current.value.toUpperCase();
+    
+    const countryFinder = ( country ) => {
+      const countryName = country.name.toUpperCase();
+      return country.id === countrySelected || countryName === countrySelected;
+    }
+    const isCountry = allCountries.find(countryFinder);
+    if(!isCountry) return setErrorText('Error: write a real country.');
+    
+    const countryId = isCountry.id;
+    const isRepeat = [...formValues.countries].find(country => country === countryId)
+    if(!!isRepeat) return setErrorText('Error: country is already added.');
+
+    setFormValues({...formValues, countries: [...formValues.countries, countryId]})
+    setErrorText('');
   }
   
-  const onSubmitHandle = ( e ) => {
+  const onSubmitHandler = ( e ) => {
     e.preventDefault();
+    for(const input in formValues){
+      if(!formValues[input] || formValues[input] === "0") return setErrorText(`Error: ${input} needed.`);
+    }
+    if(formValues.countries.length < 1) return setErrorText('Error: one country at least is needed.');
+    if(formValues.name.length < 3) return setErrorText('Error: name of activity too short.');
+    // submit
   }
 
-  return <form onSubmit={onSubmitHandle} >
+  return <form onSubmit={onSubmitHandler} >
     <div>
       <label>Name: </label>
       <input
@@ -58,7 +87,9 @@ function ActivityForm() {
         value={formValues.duration}
         onChange={onChangeHandler}
       />
-      <div>{formValues.duration} minutos</div>
+      <div>
+        {formValues.duration} minutos
+      </div>
     </div>
     <br />
     <div>
@@ -69,33 +100,54 @@ function ActivityForm() {
         onChange={onChangeHandler}
       >
         <option value=''></option>
-        {SEASONS?.map((season, index) => <option
-          value={season}
-          key={index}
-        >{season}</option>)}
+        {SEASONS?.map((season, index) =>
+          <option
+            value={season}
+            key={index}
+          >
+            {season}
+          </option>  
+        )}
       </select>
     </div>
     <hr />
     <div>
       <label>Countries: </label>
-      <input list='opts' ref={countriesRef}/>
+      <input
+        list='opts'
+        ref={countriesRef}
+      />
       <datalist id='opts'>
-        {allCountriesNames?.map((country, index) =>
-        <option value={country} key={index}>
-          {country}
-        </option>)}
+        {allCountries?.map(country =>
+          <option
+            value={country.name}
+            key={country.id}
+          >
+              {country.id}
+          </option>
+        )}
       </datalist>
-      <button onClick={onCountryAddHandler}>Add Country</button>
+      <button
+        type='button'
+        onClick={onCountryAddHandler}
+      >
+        Add Country
+      </button>
     </div>
     <br />
     <div style={{backgroundColor: 'red', height: '100px'}}>
       COUNTRIES
       <div>
-        {[...formValues.countries].map((country, index) => <p key={index}>{country}</p>)}
+        {[...formValues.countries].map((country, index) => 
+          <p key={index}>
+            {country}
+          </p>
+        )}
       </div>
     </div>
     <hr />
     <button type='submit'>Create</button>
+    <p>{errorText}</p>
   </form>
 }
 

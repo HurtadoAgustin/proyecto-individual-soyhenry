@@ -12,9 +12,12 @@ const rootReducer = (state = initialState, action) => {
     case GET_ALL_COUNTRIES:
       return {
         ...state,
+        allCountries: action.payload.map(el => { return {
+          id: el.id,
+          name: el.name,
+        }}),
         countries: action.payload,
         continents: [...new Set(action.payload.map(el => el.continent))],
-        allCountriesNames: action.payload.map(el => el.name),
       }
     case GET_COUNTRIES_BY_NAME:
       return {

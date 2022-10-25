@@ -1,6 +1,6 @@
 // used in ../redux/reducer.js
 export const initialState = {
-  allCountriesNames: [],
+  allCountries: [],
   countries: [],
   country: {},
   filters: {},
