@@ -1,6 +1,5 @@
 import axios from 'axios';
-const API_PATH = 'http://localhost:3001';
-
+import { API_PATH } from '../utils/constants.js';
 
 export const GET_ALL_COUNTRIES = 'GET_ALL_COUNTRIES';
 export const GET_COUNTRIES_BY_NAME = 'GET_COUNTRIES_BY_NAME';

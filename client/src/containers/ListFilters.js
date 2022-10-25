@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveFilters } from '../redux/actions.js';
-
-const initialFilters = {
-  page: 0,
-  text: '',
-  sortAsc: false, // true: sort ascending, false: sort descending
-  typeAlpha: false, // true: alphabetical, false: population
-  continent: '',
-  activity: {},
-}
+import { initialFilters } from '../utils/initialObjects.js';
 
 function ListFilters() {
   const dispatch = useDispatch();

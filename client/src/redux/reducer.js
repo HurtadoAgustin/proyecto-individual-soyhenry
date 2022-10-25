@@ -1,3 +1,4 @@
+import { initialState } from '../utils/initialObjects.js';
 import {
   GET_ALL_COUNTRIES,
   GET_COUNTRIES_BY_NAME,
@@ -5,14 +6,6 @@ import {
   CLEAR_COUNTRY,
   SAVE_FILTERS,
 } from './actions.js';
-
-const initialState = {
-  allCountriesNames: [],
-  countries: [],
-  country: {},
-  filters: {},
-  continents: [],
-};
 
 const rootReducer = (state = initialState, action) => {
   switch(action.type) {

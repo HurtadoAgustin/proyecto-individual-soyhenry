@@ -1,15 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-const initialFormValues = {
-  name: '',
-  difficulty: 0,
-  duration: 0,
-  season: '',
-  countries: [],
-}
-const SEASONS = ['summer', 'autumn', 'winter', 'spring'];
-
+import { initialFormValues } from '../utils/initialObjects.js';
+import { SEASONS } from '../utils/constants.js';
 
 function ActivityForm() {
   const dispatch = useDispatch();
