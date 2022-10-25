@@ -19,6 +19,8 @@ function CountryList() {
   
   useEffect(() => {
     let data = [...countries];
+    if(!data.length) return;
+
     data = (!!filters.typeAlpha)
       ? data.sort((a,b) => a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1)
       : data.sort((a,b) => a.population - b.population)
@@ -26,7 +28,14 @@ function CountryList() {
     if(!filters.sortAsc) data = data.reverse();
     if(!!filters.continent) data = data.filter(country => country.continent === filters.continent);
     
-    setCountryList(data);
+    const COUNTRIES_PER_PAGE = (filters.page === 0) ? 9 : 10; 
+    const dataPerPage = [];
+    for(let i = 0; i < COUNTRIES_PER_PAGE; i++){
+      let el = (COUNTRIES_PER_PAGE * filters.page) + i;
+      if(data[el]) dataPerPage.push(data[el]);
+    }
+
+    setCountryList(dataPerPage);
   },[countries, filters])
 
   return <>
