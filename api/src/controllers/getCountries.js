@@ -10,6 +10,7 @@ const getCountries = async ({ name, idCountry } = {}) => {
         name: el.name,
         flag: el.flag,
         continent: el.continent,
+        population: el.population,
       }}
       if(!name && !idCountry) return arrayData.map(reduceData); // dont filter (get all countries)
       if(!name) return arrayData.filter(country => country.id === idCountry.toUpperCase()); // filter by id
