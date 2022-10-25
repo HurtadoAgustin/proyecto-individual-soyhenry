@@ -5,6 +5,7 @@ import {
   GET_COUNTRY,
   CLEAR_COUNTRY,
   SAVE_FILTERS,
+  POST_ACTIVITY,
 } from './actions.js';
 
 const rootReducer = (state = initialState, action) => {
@@ -34,12 +35,16 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         country: {},
       }
-      case SAVE_FILTERS:
-        return {
-          ...state,
-          filters: action.payload,
-        }
-
+    case SAVE_FILTERS:
+      return {
+        ...state,
+        filters: action.payload,
+      }
+    case POST_ACTIVITY:
+      return {
+        ...state,
+        //status change
+      }
     default:
       return { ...state }
   };

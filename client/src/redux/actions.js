@@ -6,6 +6,7 @@ export const GET_COUNTRIES_BY_NAME = 'GET_COUNTRIES_BY_NAME';
 export const GET_COUNTRY = 'GET_COUNTRY';
 export const CLEAR_COUNTRY = 'CLEAR_COUNTRY';
 export const SAVE_FILTERS = 'SAVE_FILTERS';
+export const POST_ACTIVITY = 'POST_ACTIVITY';
 
 export const getAllCountries = () =>
   dispatch =>
@@ -50,3 +51,14 @@ export const saveFilters = ( filters ) => {
     payload: filters,
   }
 }
+
+export const postActivity = ( activityData ) =>
+  dispatch =>
+    axios.post(`${API_PATH}/activities`, activityData)
+      .then(response => response.data)
+      .then(data => dispatch({
+        type: POST_ACTIVITY,
+        payload: data,
+      }))
+      .catch(error => console.log(error))
+;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCountries } from '../redux/actions.js';
+import { getAllCountries, postActivity } from '../redux/actions.js';
 import { initialFormValues } from '../utils/initialObjects.js';
 import { SEASONS } from '../utils/constants.js';
 
@@ -38,6 +38,7 @@ function ActivityForm() {
   /* ---- Form Validations ---- */
   
   const onCountryAddHandler = () => {
+    if(!allCountries.length) return setErrorText('Error: please wait a second to call to the database');
     const countrySelected = countriesRef.current.value.toUpperCase();
     
     const countryFinder = ( country ) => {
@@ -64,6 +65,8 @@ function ActivityForm() {
     if(formValues.countries.length < 1) return setErrorText('Error: one country at least is needed.');
     if(formValues.name.length < 3) return setErrorText('Error: name of activity too short.');
     // submit
+    dispatch(postActivity(formValues));
+    onResetHandler();
   }
 
   return <form onSubmit={onSubmitHandler} >
