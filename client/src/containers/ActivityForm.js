@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { saveFilters } from '../redux/actions.js';
 
 const initialFormValues = {
   name: '',
@@ -19,52 +18,39 @@ function ActivityForm() {
 
   const [formValues, setFormValues] = useState(initialFormValues);
 
-  const onNameChangeHandle = ( e ) => {
-    setFormValues({...formValues , name:e.target.value});
+  const onChangeHandler = ( e ) => {
+    setFormValues({...formValues , [e.target.name]:e.target.value});
   };
-
-  const onSubmitHandle = ( event ) => {
-    event.preventDefault();
-  }
-
-  const onDifficultyChangeHandle = ( e ) => {
-    setFormValues({...formValues , difficulty:e.target.value});
-  }
-
-  const onDurationChangeHandle = ( e ) => {
-    setFormValues({...formValues , duration:e.target.value});
-    console.log(e.target.name)
-  }
-
-  const onSeasonSelectHandler = ( e ) => {
-    setFormValues({...formValues , season:e.target.value});
-  }
 
   const onCountryAddHandler = () => {
     setFormValues({...formValues, countries: [...formValues.countries, countriesRef.current.value]})
+  }
+  
+  const onSubmitHandle = ( e ) => {
+    e.preventDefault();
   }
 
   return <form onSubmit={onSubmitHandle} >
     <div>
       <label>Name: </label>
       <input
-        type='text'
         name='name'
+        type='text'
         value={formValues.name}
-        onChange={onNameChangeHandle}
+        onChange={onChangeHandler}
       />
     </div>
     <br />
     <div>
       <label>Difficulty: </label>
       <input
-        type='range'
         name='difficulty'
+        type='range'
         min={0}
         max={5}
         step={1}
         value={formValues.difficulty}
-        onChange={onDifficultyChangeHandle}
+        onChange={onChangeHandler}
       />
       <div>{formValues.difficulty}</div>
     </div>
@@ -72,13 +58,13 @@ function ActivityForm() {
     <div>
       <label>Duration: </label>
       <input
-        type='range'
         name='duration'
+        type='range'
         min={0}
         max={1440}
         step={15}
         value={formValues.duration}
-        onChange={onDurationChangeHandle}
+        onChange={onChangeHandler}
       />
       <div>{formValues.duration} minutos</div>
     </div>
@@ -86,8 +72,9 @@ function ActivityForm() {
     <div>
       <label>Season: </label>
       <select
+        name='season'
         value={formValues.season}
-        onChange={onSeasonSelectHandler}
+        onChange={onChangeHandler}
       >
         <option value=''></option>
         {SEASONS?.map((season, index) => <option

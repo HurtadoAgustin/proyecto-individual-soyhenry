@@ -20,6 +20,14 @@ function ListFilters() {
     dispatch(saveFilters(filters));
   },[dispatch, filters]);
 
+  const onChangeHandler = (e) => setFilters(
+    {...filters, [e.target.name]: e.target.value}
+  );
+
+  const onToggleHandler = (e) => setFilters(
+    {...filters, [e.target.name]: !filters[e.target.name]}
+  );
+
   const addPageHandler = () => setFilters(
     {...filters, page: filters.page + 1}
   );
@@ -28,43 +36,50 @@ function ListFilters() {
     if(filters.page > 0) setFilters(
       {...filters, page: filters.page - 1}
   )};
-  
-  const onTextChangeHandler = (e) => setFilters(
-    {...filters, text: e.target.value}
-  );
-
-  const onSortButtonHandler = () => setFilters(
-    {...filters, sortAsc: !filters.sortAsc}
-  );
-  
-  const onTypeButtonHandler = () => setFilters(
-    {...filters, typeAlpha: !filters.typeAlpha}
-  );
-  
-  const onContinentSelectHandler = (e) => setFilters(
-    {...filters, continent: e.target.value}
-  );
 
   return <>
-    <button onClick={discountPageHandler}>-</button>
+    <button
+      onClick={discountPageHandler}
+    >
+      -
+    </button>
     <div>{filters.page}</div>
-    <button onClick={addPageHandler}>+</button>
-    <input type='text' value={filters.text} onChange={onTextChangeHandler}/>
-    <button onClick={onSortButtonHandler}>
+    <button
+      onClick={addPageHandler}
+    >
+      +
+    </button>
+    <input
+      name='text'
+      type='text'
+      value={filters.text}
+      onChange={onChangeHandler}
+    />
+    <button
+      name='sortAsc'
+      onClick={onToggleHandler}
+    >
       {filters.sortAsc ? 'Sort Ascending' : 'Sort Descending'}
     </button>
-    <button onClick={onTypeButtonHandler}>
+    <button
+      name='typeAlpha'
+      onClick={onToggleHandler}
+    >
       {filters.typeAlpha ? 'Alphabetical' : 'Population'}
     </button>
     <select
+      name='continent'
       value={filters.continent}
-      onChange={onContinentSelectHandler}
+      onChange={onChangeHandler}
     >
       <option value=''>All Continents</option>
-      {continents?.map((continent, index) => <option
-        value={continent}
-        key={index}
-      >{continent}</option>)}
+      {continents?.map((continent, index) =>
+        <option
+          value={continent}
+          key={index}
+        >
+          {continent}
+        </option>)}
     </select>
   </>
 }
