@@ -1,5 +1,5 @@
 const callApi = require('./callApi.js');
-const { Country } = require('../db.js');
+const { Country, Activity } = require('../db.js');
 const { StatusCodes } = require('http-status-codes');
 
 const getCountries = async ({ name, idCountry } = {}) => {
@@ -18,7 +18,7 @@ const getCountries = async ({ name, idCountry } = {}) => {
       }).map(reduceData); 
     }
 
-    const countries = await Country.findAll();
+    const countries = await Country.findAll({include: Activity});
     if(countries.length) return filters(countries); // if database exists
 
     const data = await callApi();
