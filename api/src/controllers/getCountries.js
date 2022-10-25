@@ -5,9 +5,17 @@ const { StatusCodes } = require('http-status-codes');
 const getCountries = async ({ name, idCountry } = {}) => {
   try{
     const filters = ( arrayData ) => {
-      if(!name && !idCountry) return arrayData; // dont filter (get all countries)
+      const reduceData = el => { return {
+        id: el.id,
+        name: el.name,
+        flag: el.flag,
+        continent: el.continent,
+      }}
+      if(!name && !idCountry) return arrayData.map(reduceData); // dont filter (get all countries)
       if(!name) return arrayData.filter(country => country.id === idCountry.toUpperCase()); // filter by id
-      return arrayData.filter(country => country.name.toUpperCase().includes(name.toUpperCase())); // filter by name
+      return arrayData.filter(country => { // filter by name
+        return country.name.toUpperCase().includes(name.toUpperCase());
+      }).map(reduceData); 
     }
 
     const countries = await Country.findAll();
