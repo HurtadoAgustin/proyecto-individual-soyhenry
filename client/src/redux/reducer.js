@@ -7,6 +7,7 @@ import {
 } from './actions.js';
 
 const initialState = {
+  allCountriesNames: [],
   countries: [],
   country: {},
   filters: {},
@@ -19,7 +20,8 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         countries: action.payload,
-        continents: [...new Set(action.payload.map(el => el.continent))]
+        continents: [...new Set(action.payload.map(el => el.continent))],
+        allCountriesNames: action.payload.map(el => el.name),
       }
     case GET_COUNTRIES_BY_NAME:
       return {

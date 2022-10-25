@@ -57,8 +57,8 @@ function ListFilters() {
       {filters.typeAlpha ? 'Alphabetical' : 'Population'}
     </button>
     <select
-      onChange={onContinentSelectHandler}
       value={filters.continent}
+      onChange={onContinentSelectHandler}
     >
       <option value=''>All Continents</option>
       {continents?.map((continent, index) => <option
