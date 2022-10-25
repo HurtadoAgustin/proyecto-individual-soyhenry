@@ -25,6 +25,14 @@ function CountryDetail(props) {
     <p>{countryDetail.area}m2</p>
     <p>{countryDetail.population} people</p>
     <img src={countryDetail.flag} alt='country flag' width='450px' height='450px'/>
+    <div>
+      {countryDetail.Activities?.map(activity => <div>
+        <h2>{activity.name}</h2>
+        <p>{activity.duration}</p>
+        <h3>{activity.difficulty}</h3>
+        <p>{activity.season}</p>
+      </div>)}
+    </div>
   </>
 }
 
