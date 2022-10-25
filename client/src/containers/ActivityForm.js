@@ -16,11 +16,25 @@ function ActivityForm() {
     dispatch(getAllCountries());
   },[dispatch]);
   
+  /* ---- Handlers ---- */
+
   const onChangeHandler = ( e ) => {
     setFormValues({...formValues , [e.target.name]:e.target.value});
     setErrorText('');
   };
+
+  const deleteSelectedHandler = ( e ) => {
+    console.log(e.target)
+    const newValues = [...formValues.countries].filter(el => el !== e.target.id);
+    setFormValues({...formValues, countries: newValues})
+  }
   
+  const onResetHandler = () => {
+    setFormValues(initialFormValues);
+    countriesRef.current.value = '';
+    setErrorText('');
+  }
+
   /* ---- Form Validations ---- */
   
   const onCountryAddHandler = () => {
@@ -34,10 +48,11 @@ function ActivityForm() {
     if(!isCountry) return setErrorText('Error: write a real country.');
     
     const countryId = isCountry.id;
-    const isRepeat = [...formValues.countries].find(country => country === countryId)
+    const isRepeat = [...formValues.countries].find(country => country === countryId);
     if(!!isRepeat) return setErrorText('Error: country is already added.');
 
-    setFormValues({...formValues, countries: [...formValues.countries, countryId]})
+    setFormValues({...formValues, countries: [...formValues.countries, countryId]});
+    countriesRef.current.value = '';
     setErrorText('');
   }
   
@@ -123,7 +138,7 @@ function ActivityForm() {
             value={country.name}
             key={country.id}
           >
-              {country.id}
+            {country.id}
           </option>
         )}
       </datalist>
@@ -139,14 +154,29 @@ function ActivityForm() {
       COUNTRIES
       <div>
         {[...formValues.countries].map((country, index) => 
-          <p key={index}>
+          <div key={index}>
             {country}
-          </p>
+            <button
+              id={country}
+              type='button'
+              onClick={deleteSelectedHandler}
+            >
+              X
+            </button>
+          </div>
         )}
       </div>
     </div>
     <hr />
-    <button type='submit'>Create</button>
+    <button type='submit'>
+      Create
+    </button>
+    <button
+      type='button'
+      onClick={onResetHandler}
+    >
+      Reset
+    </button>
     <p>{errorText}</p>
   </form>
 }
