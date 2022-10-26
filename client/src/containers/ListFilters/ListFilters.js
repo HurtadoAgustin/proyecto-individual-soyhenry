@@ -7,6 +7,7 @@ import './ListFilters.css';
 function ListFilters() {
   const dispatch = useDispatch();
   const continents = useSelector(state => state.continents);
+  const globalFilters = useSelector(state => state.filters);
   const [filters, setFilters] = useState(initialFilters);
 
   useEffect(() => {
@@ -14,11 +15,11 @@ function ListFilters() {
   },[dispatch, filters]);
 
   const onChangeHandler = (e) => setFilters(
-    {...filters, [e.target.name]: e.target.value}
+    {...globalFilters, [e.target.name]: e.target.value}
   );
 
   const onToggleHandler = (e) => setFilters(
-    {...filters, [e.target.name]: !filters[e.target.name]}
+    {...globalFilters, [e.target.name]: !filters[e.target.name]}
   );
 
   return <div className='listfilters'>
