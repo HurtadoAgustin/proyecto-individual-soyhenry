@@ -21,27 +21,7 @@ function ListFilters() {
     {...filters, [e.target.name]: !filters[e.target.name]}
   );
 
-  const addPageHandler = () => setFilters(
-    {...filters, page: filters.page + 1}
-  );
-
-  const discountPageHandler = () => {
-    if(filters.page > 0) setFilters(
-      {...filters, page: filters.page - 1}
-  )};
-
   return <>
-    <button
-      onClick={discountPageHandler}
-    >
-      -
-    </button>
-    <div>{filters.page}</div>
-    <button
-      onClick={addPageHandler}
-    >
-      +
-    </button>
     <input
       name='text'
       type='text'

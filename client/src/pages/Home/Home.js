@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import CountryList from '../../containers/CountryList/CountryList.js';
 import ListFilters from '../../containers/ListFilters/ListFilters.js';
+import PageCounter from '../../components/PageCounter/PageCounter.js';
 import './Home.css';
 
 function Home() {
@@ -20,7 +21,9 @@ function Home() {
     <main className='home__main'>
       <CountryList />
     </main>
-    <footer></footer>
+    <footer>
+      <PageCounter />
+    </footer>
   </>
 }
 
