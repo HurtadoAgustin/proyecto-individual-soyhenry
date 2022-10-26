@@ -6,20 +6,21 @@ import './Home.css';
 
 function Home() {
   return <>
-    <header>
-      <Link to='/'>
-        <button>Volver LandingPage</button>
-      </Link>
-      <Link to='/create'>
-        <button>Crear actividad</button>
-      </Link>
-    </header>
-    <hr />
-    <div>
+    <header className='home__header'>
+      <div className='home__links'>
+        <Link to='/'>
+          <button>Volver LandingPage</button>
+        </Link>
+        <Link to='/create'>
+          <button>Crear actividad</button>
+        </Link>
+      </div>
       <ListFilters />
-      <hr />
+    </header>
+    <main className='home__main'>
       <CountryList />
-    </div>
+    </main>
+    <footer></footer>
   </>
 }
 

@@ -1,0 +1,13 @@
+.home__main {
+  width: 100%;
+  height: 100vh;
+  background-image: url('../../assets/imgs/home.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.home__links {
+  background-color: red;
+}
