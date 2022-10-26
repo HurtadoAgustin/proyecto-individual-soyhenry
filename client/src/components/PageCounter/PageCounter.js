@@ -19,19 +19,32 @@ function PageCounter() {
     if(filters.page > 0) setFilters({...globalFilters, page: filters.page - 1});
   };
 
-  return <>
+  return <div className='counter'>
     <button
+      className='
+        counter--items
+        counter--items__button
+      '
       onClick={discountPageHandler}
     >
       -
     </button>
-    <div>{filters.page}</div>
+    <div className='
+      counter--items
+      counter--items__number
+    '>
+      {filters.page}
+    </div>
     <button
+      className='
+        counter--items
+        counter--items__button
+      '
       onClick={addPageHandler}
     >
       +
     </button>
-  </>
+  </div>
 }
 
 export default PageCounter;
