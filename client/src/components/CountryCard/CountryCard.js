@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 import './CountryCard.css';
 
 function CountryCard({id, name, flag, continent}) {
-  return <div className='country-card'>
-    <Link
+  return <Link
       to={`/country/${id}`}
       className='country-card__link'
     >
+      <img
+        className='country-card--img'
+        src={flag}
+        alt='country flag'/>
       <h3
         className='
           country-card--text
@@ -24,12 +27,7 @@ function CountryCard({id, name, flag, continent}) {
       >
         {name}
       </h2>
-      <img
-        className='country-card--img'
-        src={flag}
-        alt='country flag'/>
     </Link>
-  </div>
 }
 
 export default CountryCard;

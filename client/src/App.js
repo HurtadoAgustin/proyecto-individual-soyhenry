@@ -4,7 +4,7 @@ import LandingPage from './pages/Landing/Landing.js';
 import Home from './pages/Home/Home.js';
 import CountryDetail from './pages/CountryDetail/CountryDetail.js';
 import CreateActivity from './pages/CreateActivity/CreateActivity.js';
-import './styles/globalStyles.css';
+import './assets/styles/globalStyles.css';
 
 function App() {
   return <>

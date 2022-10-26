@@ -1,0 +1,12 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+/*  FONTS   */
+
+@font-face {
+  font-family: 'Varela Round';
+  src: src('../fonts/VarelaRound-Regular.ttf');
+}
