@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCountries, getCountriesByName } from '../../redux/actions.js';
 import CountryCard from '../../components/CountryCard/CountryCard.js';
-import './CountryList.css';
 
 function CountryList() {
   const dispatch = useDispatch();

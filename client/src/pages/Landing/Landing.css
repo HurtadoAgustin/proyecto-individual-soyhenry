@@ -1,4 +1,4 @@
-.landing__background {
+.landing--background {
   width: 100%;
   height: 100vh;
   background-image: url('../../assets/imgs/landing.jpg');
@@ -11,7 +11,7 @@
   justify-content: center;
 }
 
-.landing__button {
+.landing--button {
   width: fit-content;
   height: fit-content;
   padding: 3rem;

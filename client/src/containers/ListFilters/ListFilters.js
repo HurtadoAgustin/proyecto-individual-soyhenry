@@ -21,40 +21,50 @@ function ListFilters() {
     {...filters, [e.target.name]: !filters[e.target.name]}
   );
 
-  return <>
+  return <div className='listfilters'>
     <input
+      className='list-filters--searcher'
       name='text'
-      type='text'
+      type='searcher'
       value={filters.text}
       onChange={onChangeHandler}
     />
     <button
+      className='list-filters--button__sort'
       name='sortAsc'
       onClick={onToggleHandler}
     >
       {filters.sortAsc ? 'Sort Ascending' : 'Sort Descending'}
     </button>
     <button
+      className='list-filters--button__type'
       name='typeAlpha'
       onClick={onToggleHandler}
     >
       {filters.typeAlpha ? 'Alphabetical' : 'Population'}
     </button>
     <select
+      className='list-filters--continents'
       name='continent'
       value={filters.continent}
       onChange={onChangeHandler}
     >
-      <option value=''>All Continents</option>
+      <option
+        className='list-filters--continents__item'
+        value=''
+      >
+        All Continents
+      </option>
       {continents?.map((continent, index) =>
         <option
+          className='list-filters--continents__item'
           value={continent}
           key={index}
         >
           {continent}
         </option>)}
     </select>
-  </>
+  </div>
 }
 
 export default ListFilters;

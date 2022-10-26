@@ -7,21 +7,21 @@ import './Home.css';
 
 function Home() {
   return <>
-    <header className='home__header'>
-      <div className='home__links'>
+    <header className='home--header'>
+      <div className='home--header__links'>
         <Link to='/'>
-          <button>Volver LandingPage</button>
+          <button>LandingPage</button>
         </Link>
         <Link to='/create'>
-          <button>Crear actividad</button>
+          <button>Create new Activity</button>
         </Link>
       </div>
       <ListFilters />
     </header>
-    <main className='home__main'>
+    <main className='home--main'>
       <CountryList />
     </main>
-    <footer>
+    <footer className='home--footer'>
       <PageCounter />
     </footer>
   </>

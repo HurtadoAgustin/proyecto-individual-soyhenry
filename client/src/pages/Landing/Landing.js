@@ -4,11 +4,9 @@ import './Landing.css';
 
 function Landing() {
   return (
-  <main className='landing__background'>
-    <Link
-      to='/home'
-    >
-      <button className='landing__button'>
+  <main className='landing--background'>
+    <Link to='/home'>
+      <button className='landing--button'>
         Start Journey
       </button>
     </Link>
