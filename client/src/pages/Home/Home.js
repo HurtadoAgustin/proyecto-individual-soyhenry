@@ -8,15 +8,20 @@ import './Home.css';
 function Home() {
   return <>
     <header className='home--header'>
-      <div className='home--header__links'>
-        <Link to='/'>
-          <button>LandingPage</button>
-        </Link>
-        <Link to='/create'>
-          <button>Create new Activity</button>
-        </Link>
+      <Link to='/'>
+        <button className='home--header__links'>
+          Go Landing
+        </button>
+      </Link>
+      <div className='home--header__middle'>
+        <h1>Country Searcher</h1>
+        <ListFilters />
       </div>
-      <ListFilters />
+      <Link to='/create'>
+        <button className='home--header__links'> 
+          Create Activity!
+        </button>
+      </Link>
     </header>
     <main className='home--main'>
       <CountryList />
