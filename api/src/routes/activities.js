@@ -5,7 +5,7 @@ const { Activity, Country } = require('../db.js');
 router.post('/', async (req, res) => {
   const { name, duration, difficulty, season, countries } = req.body;
   try {
-    if(!name || !duration || !difficulty || !season || countries.length <= 1) {
+    if(!name || !duration || !difficulty || !season || countries.length < 1) {
       throw {message: 'Required information is missing', status: StatusCodes.BAD_REQUEST};
     }
     const data = {...req.body};
