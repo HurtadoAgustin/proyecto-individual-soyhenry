@@ -10,8 +10,8 @@ function ActivityForm() {
   const allCountries = useSelector(state => state.allCountries);
   const countriesRef = useRef('');
   const [errorText, setErrorText] = useState('');
-
   const [formValues, setFormValues] = useState(initialFormValues);
+  const [countriesFlags, setCountriesFlags] = useState([]);
 
   useEffect(()=>{
     dispatch(getAllCountries());
@@ -28,10 +28,12 @@ function ActivityForm() {
     console.log(e.target)
     const newValues = [...formValues.countries].filter(el => el !== e.target.id);
     setFormValues({...formValues, countries: newValues})
+    setCountriesFlags([...countriesFlags].filter(el => el.id !== e.target.id))
   }
   
   const onResetHandler = () => {
     setFormValues(initialFormValues);
+    setCountriesFlags([]);
     countriesRef.current.value = '';
     setErrorText('');
   }
@@ -46,14 +48,14 @@ function ActivityForm() {
       const countryName = country.name.toUpperCase();
       return country.id === countrySelected || countryName === countrySelected;
     }
-    const isCountry = allCountries.find(countryFinder);
-    if(!isCountry) return setErrorText('Error: write a real country.');
+    const country = allCountries.find(countryFinder);
+    if(!country) return setErrorText('Error: write a real country.');
     
-    const countryId = isCountry.id;
-    const isRepeat = [...formValues.countries].find(country => country === countryId);
+    const isRepeat = [...formValues.countries].find(el => el === country.id);
     if(!!isRepeat) return setErrorText('Error: country is already added.');
-
-    setFormValues({...formValues, countries: [...formValues.countries, countryId]});
+    
+    setFormValues({...formValues, countries: [...formValues.countries, country.id]});
+    setCountriesFlags([...countriesFlags, {id: country.id, flag: country.flag}]);
     countriesRef.current.value = '';
     setErrorText('');
   }
@@ -70,98 +72,111 @@ function ActivityForm() {
     onResetHandler();
   }
 
-  return <form onSubmit={onSubmitHandler} >
-    <div>
-      <label>Name: </label>
-      <input
-        name='name'
-        type='text'
-        value={formValues.name}
-        onChange={onChangeHandler}
-      />
-    </div>
-    <br />
-    <div>
-      <label>Difficulty: </label>
-      <input
-        name='difficulty'
-        type='range'
-        min={0}
-        max={5}
-        step={1}
-        value={formValues.difficulty}
-        onChange={onChangeHandler}
-      />
-      <div>{formValues.difficulty}</div>
-    </div>
-    <br />
-    <div>
-      <label>Duration: </label>
-      <input
-        name='duration'
-        type='range'
-        min={0}
-        max={1440}
-        step={15}
-        value={formValues.duration}
-        onChange={onChangeHandler}
-      />
-      <div>
-        {formValues.duration} minutos
+  return <form id='form' onSubmit={onSubmitHandler}>
+    <div className='form--container'>
+      <div className='form--field'>
+        <label>Name: </label>
+        <input
+          className='form--input'
+          name='name'
+          type='text'
+          value={formValues.name}
+          onChange={onChangeHandler}
+        />
+      </div>
+      <div className='form--field'>
+        <label>Difficulty: </label>
+        <input
+          className='form--field__range'
+          name='difficulty'
+          type='range'
+          min={0}
+          max={5}
+          step={1}
+          value={formValues.difficulty}
+          onChange={onChangeHandler}
+        />
+        <span>{formValues.difficulty}</span>
+      </div>
+      <div className='form--field'>
+        <label>Duration: </label>
+        <input
+          className='form--field__range'
+          name='duration'
+          type='range'
+          min={0}
+          max={1440}
+          step={15}
+          value={formValues.duration}
+          onChange={onChangeHandler}
+        />
+        <span>
+          {formValues.duration} minutos
+        </span>
+      </div>
+      <div className='form--field'>
+        <label>Season: </label>
+        <select
+          className='form--field__season'
+          name='season'
+          value={formValues.season}
+          onChange={onChangeHandler}
+        >
+          <option value=''></option>
+          {SEASONS?.map((season, index) =>
+            <option
+              value={season}
+              key={index}
+            >
+              {season}
+            </option>  
+          )}
+        </select>
+      </div>
+      <div className='form--field'>
+        <label>Countries: </label>
+        <input
+          list='opts'
+          ref={countriesRef}
+        />
+        <datalist id='opts'>
+          {allCountries?.map(country =>
+            <option
+              value={country.name}
+              key={country.id}
+            >
+              {country.id}
+            </option>
+          )}
+        </datalist>
+        <button
+          type='button'
+          onClick={onCountryAddHandler}
+        >
+          Add Country
+        </button>
+      </div>
+      <div className='form--field form--field__options'>
+        <button type='submit'>
+          Create
+        </button>
+        <button
+          type='button'
+          onClick={onResetHandler}
+        >
+          Reset
+        </button>
+        {errorText && <span>{errorText}</span>}
       </div>
     </div>
-    <br />
-    <div>
-      <label>Season: </label>
-      <select
-        name='season'
-        value={formValues.season}
-        onChange={onChangeHandler}
-      >
-        <option value=''></option>
-        {SEASONS?.map((season, index) =>
-          <option
-            value={season}
-            key={index}
-          >
-            {season}
-          </option>  
-        )}
-      </select>
-    </div>
-    <hr />
-    <div>
-      <label>Countries: </label>
-      <input
-        list='opts'
-        ref={countriesRef}
-      />
-      <datalist id='opts'>
-        {allCountries?.map(country =>
-          <option
-            value={country.name}
-            key={country.id}
-          >
-            {country.id}
-          </option>
-        )}
-      </datalist>
-      <button
-        type='button'
-        onClick={onCountryAddHandler}
-      >
-        Add Country
-      </button>
-    </div>
-    <br />
-    <div style={{backgroundColor: 'red', height: '100px'}}>
-      COUNTRIES
-      <div>
-        {[...formValues.countries].map((country, index) => 
-          <div key={index}>
-            {country}
+    <div className='form--field__country-list'>
+      <span>Countries Selected:</span>
+      <div className='country-list--container'>
+        {[...countriesFlags].map(country => 
+          <div key={country.id} >
+            <img src={country.flag} alt='country selected'/>
             <button
-              id={country}
+              id={country.id}
               type='button'
               onClick={deleteSelectedHandler}
             >
@@ -171,17 +186,6 @@ function ActivityForm() {
         )}
       </div>
     </div>
-    <hr />
-    <button type='submit'>
-      Create
-    </button>
-    <button
-      type='button'
-      onClick={onResetHandler}
-    >
-      Reset
-    </button>
-    <p>{errorText}</p>
   </form>
 }
 

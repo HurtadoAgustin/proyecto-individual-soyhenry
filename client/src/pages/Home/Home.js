@@ -11,6 +11,7 @@ function Home() {
       title='Country Searcher'
       link='Create Activity!'
       path='/create'
+      color='orange'
     >
       <ListFilters />
     </Header>

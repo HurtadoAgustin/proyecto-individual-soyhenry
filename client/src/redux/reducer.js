@@ -16,6 +16,7 @@ const rootReducer = (state = initialState, action) => {
         allCountries: action.payload.map(el => { return {
           id: el.id,
           name: el.name,
+          flag: el.flag,
         }}),
         countries: action.payload,
         continents: [...new Set(action.payload.map(el => el.continent))],

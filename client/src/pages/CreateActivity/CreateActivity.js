@@ -1,13 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Header from '../../containers/Header/Header.js';
 import ActivityForm from '../../containers/ActivityForm/ActivityForm.js';
 import './CreateActivity.css';
 
 function CreateActivity() {
   return <>
-    <Link to='/home'>
-      <button>GO HOME</button>
-    </Link>
+    <Header
+      title='Activity Creator'
+      link='Go Home'
+      path='/home'
+      color='blue'
+    />
     <ActivityForm />
   </>
 }
