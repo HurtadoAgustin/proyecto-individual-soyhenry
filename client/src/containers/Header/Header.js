@@ -7,7 +7,7 @@ function Header(props) {
   return <header className={`header header--${color}`}>
     <Link to='/'>
       <button className={`header--link header--link__${color}`}>
-        Go Landing
+        <span>Go Landing</span>
       </button>
     </Link>
     <div className='header--middle'>
@@ -16,7 +16,7 @@ function Header(props) {
     </div>
     <Link to={path}>
       <button className={`header--link header--link__${color}`}> 
-        {link}
+        <span>{link}</span>
       </button>
     </Link>
   </header>

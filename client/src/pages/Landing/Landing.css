@@ -15,6 +15,21 @@
   width: fit-content;
   height: fit-content;
   padding: 3rem;
+  border: 3px solid black;
+  border-radius: 15px;
   background-color: transparent;
   cursor: pointer;
+  background-color: rgba(0,0,0,0.30);
 }
+
+.landing--button span {
+  font-family: 'Roboto', sans-serif;
+  font-size: 35px;
+  font-weight: 700;
+  color: rgb(194, 194, 194);
+  text-shadow: 10px 5px 10px rgba(0, 0, 0);
+}
+
+.landing--button:hover {background-color: rgba(0,0,0,0.75);}
+
+.landing--button span:hover {color: rgb(128, 128, 128);}

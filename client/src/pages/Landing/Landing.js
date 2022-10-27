@@ -7,7 +7,7 @@ function Landing() {
   <main className='landing--background'>
     <Link to='/home'>
       <button className='landing--button'>
-        Start Journey
+        <span>Start the Journey!</span>
       </button>
     </Link>
   </main>)
