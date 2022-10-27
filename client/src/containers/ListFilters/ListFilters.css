@@ -1,0 +1,56 @@
+.list-filters {
+  width: 35vw;
+}
+
+.list-filters--searcher {
+  width: 100%;
+  background-color: rgb(226, 191, 94);
+  padding: 8px;
+  border: 1px solid black;
+  border-radius: 10px;
+  color: black;
+  font-family: 'Varela Round', sans-serif;
+  font-weight: 700;
+  margin-top: 12px;
+  margin-bottom: 10px;
+}
+
+.list-filters--button__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.list-filters--button {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-filters--button button,
+.list-filters--button select {
+  font-family: 'Varela Round', sans-serif;
+  font-weight: 700;
+  color: black;
+  background-color: rgb(226, 191, 94);
+  border: 1px solid black;
+  border-radius: 7px;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.list-filters--button span {
+  font-family: 'Varela Round', sans-serif;
+  font-weight: 700;
+  color: black;
+  text-align: center;
+}
+
+.list-filters--button button:hover,
+.list-filters--button select:hover,
+.list-filters--searcher:hove {
+  background-color: rgb(189, 160, 80);
+}
+
+.list-filters--button select option {
+  background-color: rgb(226, 191, 94);
+}
