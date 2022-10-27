@@ -29,6 +29,7 @@ function ListFilters() {
       type='search'
       value={filters.text}
       onChange={onChangeHandler}
+      autoComplete='off'
     />
     <div className='list-filters--button__container'>
       <div

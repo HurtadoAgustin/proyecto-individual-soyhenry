@@ -82,6 +82,7 @@ function ActivityForm() {
           type='text'
           value={formValues.name}
           onChange={onChangeHandler}
+          autoComplete='off'
         />
       </div>
       <div className='form--field'>

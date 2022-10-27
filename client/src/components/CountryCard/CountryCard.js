@@ -5,7 +5,7 @@ import './CountryCard.css';
 function CountryCard({id, name, flag, continent}) {
   return <Link
       to={`/country/${id}`}
-      className='country-card__link'
+      className='country-card--link'
     >
       <img
         className='country-card--img'
