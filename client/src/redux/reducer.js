@@ -6,6 +6,8 @@ import {
   CLEAR_COUNTRY,
   SAVE_FILTERS,
   POST_ACTIVITY,
+  SAVE_ERROR,
+  CLEAR_ERROR,
 } from './actions.js';
 
 const rootReducer = (state = initialState, action) => {
@@ -45,6 +47,16 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         //status change
+      }
+    case SAVE_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      }
+    case CLEAR_ERROR:
+      return {
+        ...state,
+        error: '',
       }
     default:
       return { ...state }

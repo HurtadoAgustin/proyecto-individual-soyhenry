@@ -5,6 +5,7 @@ export const initialState = {
   country: {},
   filters: {},
   continents: [],
+  error: '',
 };
 
 // used in ../containers/ListFilters.js

@@ -11,6 +11,7 @@ function PageCounter() {
 
   useEffect(() => {
     dispatch(saveFilters(filters));
+    window.scrollTo(0, 0);
   },[dispatch, filters]);
 
   const addPageHandler = () => setFilters({...globalFilters, page: filters.page + 1});
@@ -33,7 +34,7 @@ function PageCounter() {
       counter--items
       counter--items__number
     '>
-      {filters.page}
+      {globalFilters.page}
     </div>
     <button
       className='

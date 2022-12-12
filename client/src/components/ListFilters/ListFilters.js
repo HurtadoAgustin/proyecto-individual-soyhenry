@@ -15,11 +15,11 @@ function ListFilters() {
   },[dispatch, filters]);
 
   const onChangeHandler = (e) => setFilters(
-    {...globalFilters, [e.target.name]: e.target.value}
+    {...globalFilters, [e.target.name]: e.target.value, page: initialFilters.page}
   );
 
   const onToggleHandler = (e) => setFilters(
-    {...globalFilters, [e.target.name]: !filters[e.target.name]}
+    {...globalFilters, [e.target.name]: !filters[e.target.name],  page: initialFilters.page}
   );
 
   return <div className='list-filters'>

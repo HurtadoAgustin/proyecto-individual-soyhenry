@@ -7,6 +7,8 @@ export const GET_COUNTRY = 'GET_COUNTRY';
 export const CLEAR_COUNTRY = 'CLEAR_COUNTRY';
 export const SAVE_FILTERS = 'SAVE_FILTERS';
 export const POST_ACTIVITY = 'POST_ACTIVITY';
+export const SAVE_ERROR = 'SAVE_ERROR';
+export const CLEAR_ERROR = 'CLEAR_ERROR';
 
 export const getAllCountries = () =>
   dispatch =>
@@ -16,7 +18,10 @@ export const getAllCountries = () =>
         type: GET_ALL_COUNTRIES,
         payload: data,
       }))
-      .catch(error => console.log(error))
+      .catch(error => dispatch({
+        type: SAVE_ERROR,
+        payload: error.message,
+      }))
 ;
 
 export const getCountriesByName = ( text ) =>
@@ -27,7 +32,10 @@ export const getCountriesByName = ( text ) =>
         type: GET_COUNTRIES_BY_NAME,
         payload: data,
       }))
-      .catch(error => console.log(error))
+      .catch(error => dispatch({
+        type: SAVE_ERROR,
+        payload: error.message,
+      }))
 ;
 
 export const getCountry = ( idCountry ) =>
@@ -38,7 +46,10 @@ export const getCountry = ( idCountry ) =>
         type: GET_COUNTRY,
         payload: data[0],
       }))
-      .catch(error => console.log(error))
+      .catch(error => dispatch({
+        type: SAVE_ERROR,
+        payload: error.message,
+      }))
 ;
 
 export const clearCountry = () => {
@@ -60,5 +71,14 @@ export const postActivity = ( activityData ) =>
         type: POST_ACTIVITY,
         payload: data,
       }))
-      .catch(error => console.log(error))
+      .catch(error => dispatch({
+        type: SAVE_ERROR,
+        payload: error.message,
+      }))
 ;
+
+export const clearError = () => {
+  return {
+    type: CLEAR_ERROR,
+  }
+}

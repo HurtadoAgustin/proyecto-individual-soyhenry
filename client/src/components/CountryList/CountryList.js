@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCountries, getCountriesByName } from '../../redux/actions.js';
+import { getAllCountries, getCountriesByName, clearError } from '../../redux/actions.js';
 import CountryCard from '../CountryCard/CountryCard.js';
+import ErrorHandler from '../ErrorHandler/ErrorHandler.js';
 
 function CountryList() {
   const dispatch = useDispatch();
   const countries = useSelector(state => state.countries);
   const filters = useSelector(state => state.filters);
+  const error = useSelector(state => state.error);
   const [countryList, setCountryList] = useState([]);
 
   useEffect(() => {
+    dispatch(clearError());
     dispatch(
       (!filters.text)
-        ? getAllCountries()
+      ? getAllCountries()
         : getCountriesByName(filters.text)  
     );
   }, [dispatch, filters]);
@@ -35,17 +38,21 @@ function CountryList() {
       if(data[el]) dataPerPage.push(data[el]);
     }
 
+    if(!dataPerPage.length) return;
     setCountryList(dataPerPage);
   },[countries, filters])
 
-  return <>
-    {countryList?.map(country => <CountryCard
+  return <>{ ( !error )
+    ? countryList?.map(country =>
+    <CountryCard
       key={country.id}
       id={country.id}
       name={country.name}
       flag={country.flag}
       continent={country.continent}
-    />)}
+    />)
+    : <ErrorHandler type='grey' message={error}/>
+  }
   </>
 }
 
