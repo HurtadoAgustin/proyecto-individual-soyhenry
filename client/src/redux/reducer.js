@@ -1,16 +1,16 @@
-import { initialState } from '../utils/initialObjects.js';
+import { INITIAL_STATE } from '../utils/initialObjects.js';
 import {
   GET_ALL_COUNTRIES,
-  GET_COUNTRIES_BY_NAME,
-  GET_COUNTRY,
-  CLEAR_COUNTRY,
+  GET_COUNTRIES,
+  GET_COUNTRY_DETAIL,
+  CLEAR_COUNTRY_DETAIL,
   SAVE_FILTERS,
   POST_ACTIVITY,
   SAVE_ERROR,
   CLEAR_ERROR,
 } from './actions.js';
 
-const rootReducer = (state = initialState, action) => {
+const rootReducer = (state = INITIAL_STATE, action) => {
   switch(action.type) {
     case GET_ALL_COUNTRIES:
       return {
@@ -23,17 +23,23 @@ const rootReducer = (state = initialState, action) => {
         countries: action.payload,
         continents: [...new Set(action.payload.map(el => el.continent))],
       }
-    case GET_COUNTRIES_BY_NAME:
+    case GET_COUNTRIES:
+      return {
+        ...state,
+        allCountries: action.payload.map(el => { return {
+          id: el.id,
+          name: el.name,
+          flag: el.flag,
+        }}),
+        countries: action.payload,
+        continents: [...new Set(action.payload.map(el => el.continent))],
+      }
+    case GET_COUNTRY_DETAIL:
       return {
         ...state,
         countries: action.payload,
       }
-    case GET_COUNTRY:
-      return {
-        ...state,
-        country: action.payload,
-      }
-    case CLEAR_COUNTRY:
+    case CLEAR_COUNTRY_DETAIL:
       return {
         ...state,
         country: {},

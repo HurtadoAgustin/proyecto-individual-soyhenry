@@ -2,20 +2,20 @@ import axios from 'axios';
 import { API_PATH } from '../utils/constants.js';
 
 export const GET_ALL_COUNTRIES = 'GET_ALL_COUNTRIES';
-export const GET_COUNTRIES_BY_NAME = 'GET_COUNTRIES_BY_NAME';
-export const GET_COUNTRY = 'GET_COUNTRY';
-export const CLEAR_COUNTRY = 'CLEAR_COUNTRY';
+export const GET_COUNTRIES = 'GET_COUNTRIES';
+export const GET_COUNTRY_DETAIL = 'GET_COUNTRY_DETAIL';
+export const CLEAR_COUNTRY_DETAIL = 'CLEAR_COUNTRY_DETAIL';
 export const SAVE_FILTERS = 'SAVE_FILTERS';
 export const POST_ACTIVITY = 'POST_ACTIVITY';
 export const SAVE_ERROR = 'SAVE_ERROR';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 
-export const getAllCountries = () =>
+export const getCountries = ( filters ) =>
   dispatch =>
-    axios(`${API_PATH}/countries`)
+    axios(`${API_PATH}/countries?${filters}`)
       .then(response => response.data)
       .then(data => dispatch({
-        type: GET_ALL_COUNTRIES,
+        type: GET_COUNTRIES,
         payload: data,
       }))
       .catch(error => dispatch({
@@ -24,12 +24,12 @@ export const getAllCountries = () =>
       }))
 ;
 
-export const getCountriesByName = ( text ) =>
+export const getAllCountries = ( filters ) =>
   dispatch =>
-    axios(`${API_PATH}/countries?name=${text}`)
+    axios(`${API_PATH}/countries?${filters}`)
       .then(response => response.data)
       .then(data => dispatch({
-        type: GET_COUNTRIES_BY_NAME,
+        type: GET_COUNTRIES,
         payload: data,
       }))
       .catch(error => dispatch({
@@ -38,12 +38,12 @@ export const getCountriesByName = ( text ) =>
       }))
 ;
 
-export const getCountry = ( idCountry ) =>
+export const getCountryDetail = ( idCountry ) =>
   dispatch =>
     axios(`${API_PATH}/countries/${idCountry}`)
       .then(response => response.data)
       .then(data => dispatch({
-        type: GET_COUNTRY,
+        type: GET_COUNTRY_DETAIL,
         payload: data[0],
       }))
       .catch(error => dispatch({
@@ -52,8 +52,8 @@ export const getCountry = ( idCountry ) =>
       }))
 ;
 
-export const clearCountry = () => {
-  return { type: CLEAR_COUNTRY }
+export const clearCountryDetail = () => {
+  return { type: CLEAR_COUNTRY_DETAIL }
 };
 
 export const saveFilters = ( filters ) => {

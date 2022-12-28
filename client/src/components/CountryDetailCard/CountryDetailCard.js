@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCountry, clearCountry } from '../../redux/actions.js';
+import { getCountryDetail, clearCountryDetail } from '../../redux/actions.js';
 import './CountryDetailCard.css';
 
 function CountryDetail({ idCountry }) {
@@ -9,9 +9,9 @@ function CountryDetail({ idCountry }) {
   const country = useSelector(state => state.country);
 
   useEffect(() => {
-    dispatch(getCountry(idCountry));
+    dispatch(getCountryDetail(idCountry));
     return () => {
-      dispatch(clearCountry());
+      dispatch(clearCountryDetail());
     };
   }, [dispatch, idCountry]);
 

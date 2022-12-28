@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCountries, postActivity } from '../../redux/actions.js';
-import { initialFormValues } from '../../utils/initialObjects.js';
+import { INITIAL_FORM_VALUES } from '../../utils/initialObjects.js';
 import { SEASONS } from '../../utils/constants.js';
 import './ActivityForm.css';
 
@@ -10,7 +10,7 @@ function ActivityForm() {
   const allCountries = useSelector(state => state.allCountries);
   const countriesRef = useRef('');
   const [errorText, setErrorText] = useState('');
-  const [formValues, setFormValues] = useState(initialFormValues);
+  const [formValues, setFormValues] = useState(INITIAL_FORM_VALUES);
   const [countriesFlags, setCountriesFlags] = useState([]);
 
   useEffect(()=>{

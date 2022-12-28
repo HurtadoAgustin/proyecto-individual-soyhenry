@@ -1,5 +1,5 @@
 // used in ../redux/reducer.js
-export const initialState = {
+export const INITIAL_STATE = {
   allCountries: [],
   countries: [],
   country: {},
@@ -9,7 +9,7 @@ export const initialState = {
 };
 
 // used in ../containers/ListFilters.js
-export const initialFilters = {
+export const INITIAL_FILTERS = {
   page: 0,
   text: '',
   sortAsc: false, // true: sort ascending, false: sort descending
@@ -19,7 +19,7 @@ export const initialFilters = {
 }
 
 // used in ../containers/ActivityForm.js
-export const initialFormValues = {
+export const INITIAL_FORM_VALUES = {
   name: '',
   difficulty: 0,
   duration: 0,
