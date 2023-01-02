@@ -3,10 +3,10 @@ const { StatusCodes } = require('http-status-codes');
 const getCountries = require('../controllers/getCountries.js');
 
 router.get('/', async (req, res) => {
-  const { name } = req.query;
+  const filters = req.query;
 
   try {
-    const countries = (!name) ? await getCountries() : await getCountries({name});
+    const countries = await getCountries(filters);
     if(!countries.length) throw {message: 'Country not found', status: StatusCodes.NOT_FOUND};
 
     return res.status(StatusCodes.OK).send(countries);

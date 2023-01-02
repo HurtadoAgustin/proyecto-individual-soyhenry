@@ -1,30 +1,52 @@
 const callApi = require('./callApi.js');
 const { Country, Activity } = require('../db.js');
 const { StatusCodes } = require('http-status-codes');
+const { countryDataReducer } = require('../utils/parsers.js');
 
-const getCountries = async ({ name, idCountry } = {}) => {
+const getCountries = async ({
+  text,
+  sortAsc,
+  typeAlpha,
+  continent,
+  activity,
+  idCountry
+}) => {
   try{
-    const filters = ( arrayData ) => {
-      const reduceData = el => { return {
-        id: el.id,
-        name: el.name,
-        flag: el.flag,
-        continent: el.continent,
-        population: el.population,
-      }}
-      if(!name && !idCountry) return arrayData.map(reduceData); // dont filter (get all countries)
-      if(!name) return arrayData.filter(country => country.id === idCountry.toUpperCase()); // filter by id
-      return arrayData.filter(country => { // filter by name
-        return country.name.toUpperCase().includes(name.toUpperCase());
-      }).map(reduceData); 
+    let allCountries = await Country.findAll({include: Activity});
+    if(!allCountries.length){ // if database doesnt exists
+      const data = await callApi();
+      allCountries = await Country.bulkCreate(data, {ignoreDuplicates: true});
+    };
+    let filteredCountries = [...allCountries];
+
+    if (!!idCountry) {
+      const foundCountry = allCountries.find((country) => country.id == idCountry);
+      return [foundCountry];
     }
 
-    const countries = await Country.findAll({include: Activity});
-    if(countries.length) return filters(countries); // if database exists
+    if(!!text){
+      filteredCountries = filteredCountries.filter(country => {
+        return country.name.toUpperCase().includes(text.toUpperCase());
+      })
+    }
 
-    const data = await callApi();
-    const newCountries = await Country.bulkCreate(data, {ignoreDuplicates: true});
-    return filters(newCountries);
+    if(!!continent){
+      filteredCountries = filteredCountries.filter(country => {
+        return country.continent.toUpperCase() === continent.toUpperCase();
+      })
+    }
+    
+    if(!!typeAlpha){ // alphabetical
+      filteredCountries = filteredCountries.sort((a, b) =>
+        a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1
+      );
+    } else { // population
+      filteredCountries = filteredCountries.sort((a, b) => a.population - b.population);
+    }
+    
+    if(!sortAsc) filteredCountries.reverse();
+
+    return filteredCountries.map(countryDataReducer);
 
   } catch (error) {
     throw {
