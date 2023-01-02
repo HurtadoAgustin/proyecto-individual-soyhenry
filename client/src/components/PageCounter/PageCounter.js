@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveFilters } from '../../redux/actions.js';
-import { initialFilters } from '../../utils/initialObjects.js';
+import { INITIAL_FILTERS } from '../../utils/initialObjects.js';
 import './PageCounter.css';
 
 function PageCounter() {
   const dispatch = useDispatch();
   const globalFilters = useSelector(state => state.filters);
-  const [filters, setFilters] = useState(initialFilters);
+  const [filters, setFilters] = useState(INITIAL_FILTERS);
 
   useEffect(() => {
     dispatch(saveFilters(filters));

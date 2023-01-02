@@ -32,7 +32,7 @@ function ActivityForm() {
   }
   
   const onResetHandler = () => {
-    setFormValues(initialFormValues);
+    setFormValues(INITIAL_FORM_VALUES);
     setCountriesFlags([]);
     countriesRef.current.value = '';
     setErrorText('');

@@ -10,12 +10,12 @@ export const POST_ACTIVITY = 'POST_ACTIVITY';
 export const SAVE_ERROR = 'SAVE_ERROR';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 
-export const getCountries = ( filters ) =>
+export const getAllCountries = () =>
   dispatch =>
-    axios(`${API_PATH}/countries?${filters}`)
+    axios(`${API_PATH}/countries`)
       .then(response => response.data)
       .then(data => dispatch({
-        type: GET_COUNTRIES,
+        type: GET_ALL_COUNTRIES,
         payload: data,
       }))
       .catch(error => dispatch({
@@ -24,7 +24,7 @@ export const getCountries = ( filters ) =>
       }))
 ;
 
-export const getAllCountries = ( filters ) =>
+export const getCountries = ( filters ) =>
   dispatch =>
     axios(`${API_PATH}/countries?${filters}`)
       .then(response => response.data)

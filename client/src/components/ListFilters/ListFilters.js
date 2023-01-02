@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveFilters } from '../../redux/actions.js';
-import { initialFilters } from '../../utils/initialObjects.js';
+import { INITIAL_FILTERS } from '../../utils/initialObjects.js';
 import './ListFilters.css';
 
 function ListFilters() {
   const dispatch = useDispatch();
   const continents = useSelector(state => state.continents);
   const globalFilters = useSelector(state => state.filters);
-  const [filters, setFilters] = useState(initialFilters);
+  const [filters, setFilters] = useState(INITIAL_FILTERS);
 
   useEffect(() => {
     dispatch(saveFilters(filters));
   },[dispatch, filters]);
 
   const onChangeHandler = (e) => setFilters(
-    {...globalFilters, [e.target.name]: e.target.value, page: initialFilters.page}
+    {...globalFilters, [e.target.name]: e.target.value, page: INITIAL_FILTERS.page}
   );
 
   const onToggleHandler = (e) => setFilters(
-    {...globalFilters, [e.target.name]: !filters[e.target.name],  page: initialFilters.page}
+    {...globalFilters, [e.target.name]: !filters[e.target.name],  page: INITIAL_FILTERS.page}
   );
 
   return <div className='list-filters'>
