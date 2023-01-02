@@ -14,10 +14,10 @@ function PageCounter() {
     window.scrollTo(0, 0);
   },[dispatch, filters]);
 
-  const addPageHandler = () => setFilters({...globalFilters, page: filters.page + 1});
+  const addPageHandler = () => setFilters({...globalFilters, page: globalFilters.page + 1});
 
   const discountPageHandler = () => {
-    if(filters.page > 0) setFilters({...globalFilters, page: filters.page - 1});
+    if(filters.page > 0) setFilters({...globalFilters, page: globalFilters.page - 1});
   };
 
   return <div className='counter'>

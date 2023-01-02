@@ -11,15 +11,15 @@ function ListFilters() {
   const [filters, setFilters] = useState(INITIAL_FILTERS);
 
   useEffect(() => {
-    dispatch(saveFilters(filters));
+    dispatch(saveFilters({...filters, page: INITIAL_FILTERS.page}));
   },[dispatch, filters]);
 
   const onChangeHandler = (e) => setFilters(
-    {...globalFilters, [e.target.name]: e.target.value, page: INITIAL_FILTERS.page}
+    {...globalFilters, [e.target.name]: e.target.value}
   );
 
   const onToggleHandler = (e) => setFilters(
-    {...globalFilters, [e.target.name]: !filters[e.target.name],  page: INITIAL_FILTERS.page}
+    {...globalFilters, [e.target.name]: !filters[e.target.name]}
   );
 
   return <div className='list-filters'>
