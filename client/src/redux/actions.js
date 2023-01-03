@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { API_PATH } from '../utils/constants.js';
 
 export const GET_ALL_COUNTRIES = 'GET_ALL_COUNTRIES';
 export const GET_COUNTRIES = 'GET_COUNTRIES';
@@ -12,7 +11,7 @@ export const CLEAR_ERROR = 'CLEAR_ERROR';
 
 export const getAllCountries = () =>
   dispatch =>
-    axios(`${API_PATH}/countries`)
+    axios('/countries')
       .then(response => response.data)
       .then(data => dispatch({
         type: GET_ALL_COUNTRIES,
@@ -26,7 +25,7 @@ export const getAllCountries = () =>
 
 export const getCountries = ( filters ) =>
   dispatch =>
-    axios(`${API_PATH}/countries?${filters}`)
+    axios(`/countries?${filters}`)
       .then(response => response.data)
       .then(data => dispatch({
         type: GET_COUNTRIES,
@@ -40,7 +39,7 @@ export const getCountries = ( filters ) =>
 
 export const getCountryDetail = ( idCountry ) =>
   dispatch =>
-    axios(`${API_PATH}/countries/${idCountry}`)
+    axios(`/countries/${idCountry}`)
       .then(response => response.data)
       .then(data => dispatch({
         type: GET_COUNTRY_DETAIL,
@@ -65,7 +64,7 @@ export const saveFilters = ( filters ) => {
 
 export const postActivity = ( activityData ) =>
   dispatch =>
-    axios.post(`${API_PATH}/activities`, activityData)
+    axios.post('/activities', activityData)
       .then(response => response.data)
       .then(data => dispatch({
         type: POST_ACTIVITY,

@@ -5,7 +5,8 @@ const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const { StatusCodes } = require('http-status-codes');
 
-const DOMAIN_PATH = 'http://localhost:3000';
+require('dotenv').config();
+const CLIENT_PATH = process.env.CLIENT_PATH || 'http://localhost:3000';
 
 require('./db.js');
 
@@ -17,7 +18,7 @@ server.use(bodyParser.json({ limit: '50mb' }));
 server.use(cookieParser());
 server.use(morgan('dev'));
 server.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', DOMAIN_PATH); // update to match the domain you will make the request from
+  res.header('Access-Control-Allow-Origin', CLIENT_PATH); // update to match the domain you will make the request from
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
