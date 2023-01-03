@@ -34,7 +34,10 @@ function CountryDetail({ idCountry }) {
       </div>
       <div className='card-detail--info__activities-container'>
         {country.Activities?.length ? country.Activities.map(activity =>
-          <div className='card-detail--info__activities-item'>
+          <div
+            key={activity.name}
+            className='card-detail--info__activities-item'
+          >
             <h3>{activity.name}</h3>
             <span>Duration: {activity.duration}m</span>
             <span>Difficulty: {activity.difficulty}</span>
